@@ -47,25 +47,25 @@ const ApplicationForm = ({ onAdded }: ApplicationFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3 border p-4 rounded-xl mb-6">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-4 rounded-xl mb-6">
       <input
         value={company}
         onChange={(e) => setCompany(e.target.value)}
         placeholder="Company"
         required
-        className="border p-2 rounded"
+        className="border border-gray-300 p-2 rounded-2xl"
       />
       <input
         value={role}
         onChange={(e) => setRole(e.target.value)}
         placeholder="Role"
         required
-        className="border p-2 rounded"
+        className="border border-gray-300 p-2 rounded-2xl"
       />
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value as NewApplication["status"])}
-        className="border p-2 rounded"
+        className="border border-gray-300 p-2 rounded-2xl"
       >
         <option value="applied">Applied</option>
         <option value="interview">Interview</option>
@@ -75,21 +75,21 @@ const ApplicationForm = ({ onAdded }: ApplicationFormProps) => {
       <textarea
         value={jobDescription}
         onChange={(e) => setJobDescription(e.target.value)}
-        placeholder="Job description (optional, needed for AI tailoring later)"
-        className="border p-2 rounded"
+        placeholder="Job description (optional)"
+        className="border border-gray-300 p-2 rounded-2xl"
         rows={3}
       />
       <textarea
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         placeholder="Notes (optional)"
-        className="border p-2 rounded"
+        className="border border-gray-300 p-2 rounded-2xl"
         rows={2}
       />
       <button
         type="submit"
         disabled={saving}
-        className="bg-red-700 text-white p-2 rounded disabled:opacity-50 cursor-pointer transition-all duration-300 hover:bg-red-600 active:scale-98"
+        className="bg-[#6a8cc5] text-white p-2 rounded-3xl disabled:opacity-50 cursor-pointer transition-all duration-300 hover:bg-[#718cba] active:scale-98 shadow-md font-semibold"
       >
         {saving ? "Saving..." : "Add Application"}
       </button>

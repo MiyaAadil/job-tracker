@@ -4,7 +4,7 @@ import { supabase } from "./lib/supabase";
 import Auth from "./Auth";
 import ApplicationForm from "./ApplicationForm";
 import ApplicationList from "./ApplicationList";
-import { Plus, List } from "lucide-react";
+import { Plus, List, LogOut } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -37,17 +37,18 @@ const App = () => {
   const displayName = session.user.user_metadata.full_name || session.user.email;
 
   return (
-    <div className="p-8">
+    <div className="p-8 lg:max-w-7xl lg:mx-auto">
       <Toaster position="bottom-right" />
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Job Applications</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">Job Applications</h1>
         <button
           onClick={() => {supabase.auth.signOut()
             toast.success("Signed out")
           }}
-          className="text-sm underline cursor-pointer"
+          className="text-xs bg-gray-50 shadow-md shadow-red-300 px-3 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-red-400 active:scale-96 font-bold flex gap-1"
         >
-          Sign out
+          <LogOut size={16} />
+          Sign Out
         </button>
       </div>
       <p>Welcome, <span className="font-medium italic">{displayName}</span></p>

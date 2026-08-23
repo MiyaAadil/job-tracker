@@ -3,6 +3,8 @@ import { supabase } from "./lib/supabase";
 import type { Application } from "./types";
 import ApplicationCardSkeleton from "./ApplicationCardSkeleton";
 import toast from "react-hot-toast";
+import { Trash2 } from 'lucide-react';
+
 
 const statusColors: Record<Application["status"], string> = {
   applied: "bg-gray-200 text-gray-700",
@@ -64,15 +66,15 @@ const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
   return (
     <div className="flex flex-col gap-3">
       {applications.map((app) => (
-        <div key={app.id} className="border rounded-xl p-4 flex justify-between items-start">
+        <div key={app.id} className="border-b border-gray-300 p-2 flex justify-between items-start">
           <div>
-            <h3 className="font-bold">{app.role} @ {app.company}</h3>
+            <h3 className="font-semibold">{app.role} @ {app.company}</h3>
             <p className="text-sm text-gray-500">
               Applied {new Date(app.date_applied).toLocaleDateString()}
             </p>
             {app.notes && <p className="text-sm mt-1">{app.notes}</p>}
           </div>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-4">
             <select
               value={app.status}
               onChange={(e) =>
@@ -87,9 +89,9 @@ const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
             </select>
             <button
               onClick={() => handleDelete(app.id)}
-              className="text-xs text-red-600 underline cursor-pointer"
+              className="text-xs text-red-600 underline cursor-pointer bg-red-100 p-1 rounded-full active:scale-95"
             >
-              Delete
+              <Trash2 size={22} />
             </button>
           </div>
         </div>
