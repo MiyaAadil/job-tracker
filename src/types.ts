@@ -10,7 +10,7 @@ export interface Application {
   created_at: string;
 }
 
-export type NewApplication = Pick
+export type NewApplication = Pick <
   Application,
   "company" | "role" | "status" | "job_description" | "notes"
 >;
