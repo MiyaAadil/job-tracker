@@ -65,30 +65,30 @@ const App = () => {
       <p>Welcome, <span className="font-medium italic">{displayName}</span></p>
       
 
-      <div className="flex gap-2 mb-6 border-b border-gray-100">
+      <div className="flex gap-2 mb-6 border-b border-gray-100 w-full">
   <button
     onClick={() => setView("list")}
-    className={`flex items-center gap-2 px-4 py-2 ${
+    className={`flex items-center gap-2 px-3 py-2 text-sm ${
       view === "list" ? "border-b-2 border-red-700 font-bold" : "text-gray-500 cursor-pointer"
     }`}
   >
-    <List size={18} /> My Applications
+    <List size={14} /> My Applications
   </button>
   <button
     onClick={() => setView("form")}
-    className={`flex items-center gap-2 px-4 py-2 ${
+    className={`flex items-center gap-2 px-3 py-2 text-sm ${
       view === "form" ? "border-b-2 border-red-700 font-bold" : "text-gray-500 cursor-pointer"
     }`}
   >
-    <Plus size={18} /> Add New
+    <Plus size={16} /> Add New
   </button>
   <button
     onClick={() => setView("profile")}
-    className={`flex items-center gap-2 px-4 py-2 ${
+    className={`flex items-center gap-2 px-3 py-2 text-sm ${
       view === "profile" ? "border-b-2 border-red-700 font-bold" : "text-gray-500 cursor-pointer"
     }`}
   >
-    <User size={18} /> Profile
+    <User size={16} /> Profile
   </button>
 </div>
 
