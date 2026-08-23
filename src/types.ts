@@ -10,6 +10,14 @@ export interface Application {
   created_at: string;
 }
 
+export interface Profile {
+  id: string;
+  full_name: string | null;
+  skills: string | null;
+  experience: string | null;
+  updated_at: string;
+}
+
 export type NewApplication = Pick <
   Application,
   "company" | "role" | "status" | "job_description" | "notes"

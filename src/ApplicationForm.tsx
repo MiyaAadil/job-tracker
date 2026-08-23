@@ -47,7 +47,7 @@ const ApplicationForm = ({ onAdded }: ApplicationFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-4 rounded-xl mb-6">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-2 rounded-xl mb-6 lg:max-w-3xl lg:mx-auto">
       <input
         value={company}
         onChange={(e) => setCompany(e.target.value)}
@@ -89,7 +89,7 @@ const ApplicationForm = ({ onAdded }: ApplicationFormProps) => {
       <button
         type="submit"
         disabled={saving}
-        className="bg-[#6a8cc5] text-white p-2 rounded-3xl disabled:opacity-50 cursor-pointer transition-all duration-300 hover:bg-[#718cba] active:scale-98 shadow-md font-semibold"
+        className="bg-[#6d8cbe] text-white p-2 rounded-3xl disabled:opacity-50 cursor-pointer transition-all duration-300 hover:bg-[#88a2bd] active:scale-98 shadow-md font-semibold"
       >
         {saving ? "Saving..." : "Add Application"}
       </button>

@@ -4,8 +4,9 @@ import { supabase } from "./lib/supabase";
 import Auth from "./Auth";
 import ApplicationForm from "./ApplicationForm";
 import ApplicationList from "./ApplicationList";
-import { Plus, List, LogOut } from "lucide-react";
+import { Plus, List, LogOut, User } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
+import ProfilePage from "./Profile";
 
 const App = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -13,7 +14,7 @@ const App = () => {
 
   const [refreshKey, setRefreshKey] = useState<number>(0);
 
-  const [view, setView] = useState<"form" | "list">("list");
+  const [view, setView] = useState<"form" | "list" | "profile">("list");
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -64,7 +65,7 @@ const App = () => {
       <p>Welcome, <span className="font-medium italic">{displayName}</span></p>
       
 
-      <div className="flex gap-2 mb-6 border-b">
+      <div className="flex gap-2 mb-6 border-b border-gray-100">
   <button
     onClick={() => setView("list")}
     className={`flex items-center gap-2 px-4 py-2 ${
@@ -81,6 +82,14 @@ const App = () => {
   >
     <Plus size={18} /> Add New
   </button>
+  <button
+    onClick={() => setView("profile")}
+    className={`flex items-center gap-2 px-4 py-2 ${
+      view === "profile" ? "border-b-2 border-red-700 font-bold" : "text-gray-500 cursor-pointer"
+    }`}
+  >
+    <User size={18} /> Profile
+  </button>
 </div>
 
 {view === "form" && (
@@ -92,6 +101,8 @@ const App = () => {
   />
 )}
 {view === "list" && <ApplicationList refreshKey={refreshKey} />}
+
+{view === "profile" && <ProfilePage />}
     </div>
   );
 };
