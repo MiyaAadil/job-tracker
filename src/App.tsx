@@ -38,9 +38,19 @@ const App = () => {
 
   return (
     <div className="p-8 lg:max-w-7xl lg:mx-auto">
-      <Toaster position="bottom-right" />
+
+      <Toaster
+      toastOptions={{
+        style: {
+          borderRadius: '25px'
+        }
+      }}
+      position="top-center" />
+
       <div className="flex justify-between items-center mb-6">
+
         <h1 className="text-2xl md:text-3xl font-bold">Job Applications</h1>
+
         <button
           onClick={() => {supabase.auth.signOut()
             toast.success("Signed out")
