@@ -113,7 +113,7 @@ const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
       {applications.map((app) => (
         <div key={app.id} className="border-b border-gray-300 p-2 flex justify-between items-start">
           <div className="flex-1">
-            <h3 className="font-semibold">{app.role} @ {app.company}</h3>
+            <h3 className="font-semibold">{app.role} @ <span className="text-teal-500">{app.company}</span> </h3>
             <p className="text-sm text-gray-500">
               Applied {new Date(app.date_applied).toLocaleDateString()}
             </p>
