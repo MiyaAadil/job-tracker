@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
-import type { Application } from "./types";
+import type { Application, Profile } from "./types";
 import ApplicationCardSkeleton from "./ApplicationCardSkeleton";
 import toast from "react-hot-toast";
 import { Trash2 } from 'lucide-react';
-
+import CoverLetterModal from "./CoverLetterModal";
 
 const statusColors: Record<Application["status"], string> = {
   applied: "bg-gray-200 text-gray-700",
@@ -18,8 +18,13 @@ interface ApplicationListProps {
 }
 
 const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
+
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [coverLetters, setCoverLetters] = useState<Record<string, string>>({});
+  const [generatingId, setGeneratingId] = useState<string | null>(null);
+  const [viewingLetterId, setViewingLetterId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -51,6 +56,46 @@ const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
     if (!error) toast.success("Application deleted");
   };
 
+  const handleGenerate = async (app: Application) => {
+    if (!app.job_description) return;
+
+    setGeneratingId(app.id);
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      setGeneratingId(null);
+      return;
+    }
+
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    const profile = profileData as Profile | null;
+
+    const res = await fetch("/api/tailor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        jobDescription: app.job_description,
+        skills: profile?.skills || "",
+        experience: profile?.experience || "",
+      }),
+    });
+
+    const data = await res.json();
+
+    if ("coverLetter" in data) {
+      setCoverLetters((prev) => ({ ...prev, [app.id]: data.coverLetter }));
+    } else {
+      toast.error("Failed to generate cover letter");
+    }
+
+    setGeneratingId(null);
+  };
+
   if (loading) return (
     <div className="flex flex-col gap-3">
       {Array.from({ length: 5 }).map((_, i) => (
@@ -67,12 +112,33 @@ const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
     <div className="flex flex-col gap-3">
       {applications.map((app) => (
         <div key={app.id} className="border-b border-gray-300 p-2 flex justify-between items-start">
-          <div>
+          <div className="flex-1">
             <h3 className="font-semibold">{app.role} @ {app.company}</h3>
             <p className="text-sm text-gray-500">
               Applied {new Date(app.date_applied).toLocaleDateString()}
             </p>
             {app.notes && <p className="text-sm mt-1">{app.notes}</p>}
+
+            {app.job_description && (
+              <div className="mt-2 flex gap-2">
+                <button
+                  onClick={() => handleGenerate(app)}
+                  disabled={generatingId === app.id}
+                  className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-2xl disabled:opacity-50 font-semibold cursor-pointer"
+                >
+                  {generatingId === app.id ? "Generating..." : "Generate Cover Letter"}
+                </button>
+
+                {coverLetters[app.id] && (
+                  <button
+                    onClick={() => setViewingLetterId(app.id)}
+                    className="text-xs bg-teal-400 px-2 py-1 text-white font-semibold ml-2 rounded-2xl cursor-pointer"
+                  >
+                    View Cover Letter
+                  </button>
+                )}
+              </div>
+            )}
           </div>
           <div className="flex flex-col items-end gap-4">
             <select
@@ -96,6 +162,12 @@ const ApplicationList = ({ refreshKey }: ApplicationListProps) => {
           </div>
         </div>
       ))}
+      {viewingLetterId && coverLetters[viewingLetterId] && (
+        <CoverLetterModal
+          coverLetter={coverLetters[viewingLetterId]}
+          onClose={() => setViewingLetterId(null)}
+        />
+      )}
     </div>
   );
 };
