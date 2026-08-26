@@ -1,6 +1,6 @@
 const ApplicationCardSkeleton = () => (
 
-  <div className="border-b border-gray-200 rounded-xl p-4 flex justify-between items-start animate-pulse gap-4">
+  <div className="border-b border-gray-200 p-4 flex justify-between items-start animate-pulse gap-4">
     <div className="flex-1">
       <div className="h-4 bg-gray-200 rounded w-2/3 mb-2" />
       <div className="h-3 bg-gray-200 rounded w-1/3" />

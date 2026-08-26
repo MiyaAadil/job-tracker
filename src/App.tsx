@@ -56,7 +56,7 @@ const App = () => {
           onClick={() => {supabase.auth.signOut()
             toast.success("Signed out")
           }}
-          className="text-xs bg-gray-50 shadow-md shadow-red-300 px-3 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-red-400 active:scale-96 font-bold flex gap-1"
+          className="text-xs bg-gray-50 border border-gray-100 shadow-md px-3 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-lg active:scale-96 font-bold flex gap-1"
         >
           <LogOut size={16} />
           Sign Out
