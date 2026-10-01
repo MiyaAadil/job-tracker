@@ -62,7 +62,7 @@ Both tables have RLS enabled with policies restricting all operations to rows ow
 ## Running locally
 
 ```bash
-git clone [https://github.com/MiyaAadil/job-tracker]
+git clone https://github.com/MiyaAadil/job-tracker
 cd job-tracker
 npm install
 ```
