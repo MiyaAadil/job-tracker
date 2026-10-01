@@ -1,4 +1,8 @@
 # Job Application Tracker
+<img width="1827" height="807" alt="image" src="https://github.com/user-attachments/assets/a260307f-ad50-4c9c-8632-ddc7d9d6c00f" />
+<img width="1587" height="787" alt="image" src="https://github.com/user-attachments/assets/a9fa6480-e74a-4952-80b8-c8b99ea1e4de" />
+<img width="1631" height="860" alt="image" src="https://github.com/user-attachments/assets/fcbad1a5-6778-4c18-af10-86878bd120c8" />
+
 
 A full-stack job application tracker with AI-assisted cover letter generation, built to solve a real problem I was facing during my own job search: scattered applications, no tracking system, and repetitive cover-letter writing.
 
